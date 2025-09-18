@@ -1,0 +1,24 @@
+# OS/editor
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+.vscode/
+.idea/
+
+# Arduino / PlatformIO
+.pio/
+build/
+cmake-build-*/
+
+# Binaries/artifacts
+*.bin
+*.elf
+*.map
+*.hex
+
+# Local secrets/config (DO NOT COMMIT)
+wifi_secrets.h
+ota_config.h
+certs/
