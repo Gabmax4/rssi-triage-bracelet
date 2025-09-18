@@ -2,7 +2,7 @@
 
 ESP8266/ESP32 bracelet firmware that estimates **proximity from Wi‑Fi RSSI**, drives **triage LEDs** (green/yellow/red) and demonstrates **two OTA modes**: ArduinoOTA (push from IDE) and **auto‑update by downloading a .bin from an HTTPS URL**. It also exposes simple HTTP routes you can read from a browser or hook to a tiny AJAX dashboard.
 
-> **Note on WiFiMulti:** `WiFiMulti` gives *multi‑AP roaming/failover*. It is not a full mesh (no multi‑hop routing), but in practice improves resilience: if AP1 is down, the device re‑associates to AP2 automatically. For true mesh you’d use ESP‑NOW+mesh or libraries like *painlessMesh*.
+> **Note on WiFiMulti:** `WiFiMulti` gives *multi‑AP roaming/failover*. It is **not** a full mesh (no multi‑hop routing), but in practice improves resilience: if AP1 is down, the device re‑associates to AP2 automatically. For true mesh you’d use ESP‑NOW mesh or libraries like *painlessMesh*.
 
 ---
 
@@ -19,10 +19,10 @@ ESP8266/ESP32 bracelet firmware that estimates **proximity from Wi‑Fi RSSI**, 
 
 ```mermaid
 flowchart LR
-  U[User / Dashboard] <-- HTTP GET --> B[Bracelet Web Endpoints]
-  subgraph Bracelet (ESP8266/ESP32)
+  U[User / Dashboard] <-->|HTTP GET| B[Bracelet Web Endpoints]
+  subgraph BRACELET
     FW[Main firmware]
-    RSSI[RSSI->Distance module]
+    RSSI[RSSI -> Distance module]
     OTA1[ArduinoOTA (IDE)]
     OTA2[Auto-Update from HTTPS URL]
     LEDS[Triage LEDs]
@@ -31,6 +31,7 @@ flowchart LR
   FW --> LEDS
   FW --> OTA1
   FW --> OTA2
+  B <---> FW
 ```
 *(Endpoints are minimal text/JSON you can poll every 1–2 s.)*
 
@@ -62,7 +63,7 @@ README.md
 |--------------------------------|:---------:|:-------------:|:-----------:|:----------------:|:------------------:|:---------:|
 | `Triage_Bracelet_Firmware.ino` | ✅        | (integrate)   | ✅ (manual) | ✅               | ➖                 | ✅ (BearSSL) |
 | `rssi_distance.ino`            | ➖        | ✅            | ➖          | ➖               | ➖                 | ➖        |
-| `OTA_AutoUpdate_HTTPS.ino`     | ✅        | ➖            | ✅ (trigger)| ➖               | ✅                | ✅ (needs secure client) |
+| `OTA_AutoUpdate_HTTPS.ino`     | ✅        | ➖            | ✅ (trigger)| ➖               | ✅                | ✅ (secure client) |
 
 ---
 
