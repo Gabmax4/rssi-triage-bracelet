@@ -19,12 +19,12 @@ ESP8266/ESP32 bracelet firmware that estimates **proximity from Wi‑Fi RSSI**, 
 
 ```mermaid
 flowchart LR
-  U[User / Dashboard] <-->|HTTP GET| B[Bracelet Web Endpoints]
+  U[User & Dashboard] <-->|HTTP GET| B[Bracelet Web Endpoints]
   subgraph BRACELET
     FW[Main firmware]
-    RSSI[RSSI -> Distance module]
-    OTA1[ArduinoOTA (IDE)]
-    OTA2[Auto-Update from HTTPS URL]
+    RSSI[RSSI to Distance]
+    OTA1[ArduinoOTA IDE]
+    OTA2[Auto-Update via HTTPS URL]
     LEDS[Triage LEDs]
   end
   FW --> RSSI
